@@ -72,6 +72,10 @@ r"""
 _DURACION_FRAME: float = 0.4  # segundos entre frames
 _REPETICIONES:   int   = 3    # veces que se repite la animación
 
+# ── Marco de la pantalla final ────────────────────────────────
+
+_FILA_VACIA: str = "  ║                                                          ║"
+
 
 # ── Función pública ───────────────────────────────────────────
 
@@ -105,13 +109,13 @@ def _mostrar_pantalla_final(palabra_secreta: str) -> None:
     print("\n")
     print("  ╔══════════════════════════════════════════════════════════╗")
     print("  ║                       ¡¡ VICTORIA !!                     ║")
-    print("  ║                                                          ║")
+    print(_FILA_VACIA)
     print("  ║   ⚔   🪢❌ La cuerda se queda guardada… ¡ganaste!   ⚔    ║")
-    print("  ║                                                          ║")
+    print(_FILA_VACIA)
     print(f"  ║   La palabra era: {palabra_secreta.upper():<38} ║")
-    print("  ║                                                          ║")
+    print(_FILA_VACIA)
     print("  ║   ✦  El reino está a salvo gracias a ti 💪 ✦             ║")
-    print("  ║                                                          ║")
+    print(_FILA_VACIA)
     print("  ╚══════════════════════════════════════════════════════════╝")
     print("\n")
 

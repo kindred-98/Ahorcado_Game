@@ -20,11 +20,11 @@
         <!-- SELECCIÓN DIFICULTAD -->
         <div id="dificultad" class="seccion">
             <h2>Selecciona Dificultad</h2>
-            <button onclick="iniciarJuego('facil')" style="color:#27ae60">Fácil</button>
-            <button onclick="iniciarJuego('medio')" style="color:#f39c12">Medio</button>
-            <button onclick="iniciarJuego('dificil')" style="color:#e74c3c">Difícil</button>
-            <button onclick="iniciarJuego('legendario')" style="color:#8e44ad">Legendario</button>
-            <button onclick="iniciarJuego('')" style="color:#c7a44a">🎲 Aleatorio</button>
+            <button onclick="iniciarJuego('facil')" class="dif-facil">Fácil</button>
+            <button onclick="iniciarJuego('medio')" class="dif-medio">Medio</button>
+            <button onclick="iniciarJuego('dificil')" class="dif-dificil">Difícil</button>
+            <button onclick="iniciarJuego('legendario')" class="dif-legendario">Legendario</button>
+            <button onclick="iniciarJuego('')" class="dif-aleatorio">🎲 Aleatorio</button>
             <button class="volver" onclick="mostrarPantalla('menu')">← Volver</button>
         </div>
 
@@ -43,7 +43,7 @@
 
         <!-- RESULTADO -->
         <div id="resultado" class="seccion">
-            <h2 id="resultado-titulo"></h2>
+            <h2 id="resultado-titulo" aria-live="polite">Resultado de la partida</h2>
             <p id="resultado-palabra"></p>
             <p id="resultado-fallos"></p>
             <button onclick="mostrarPantalla('dificultad')">🔄 Jugar de nuevo</button>

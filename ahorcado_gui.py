@@ -51,6 +51,13 @@ COLORES = {
     "deshabilitado": "#555555"
 }
 
+# Estilo de ttk usado por los títulos de cada pantalla
+ESTILO_TITULO = "Titulo.TLabel"
+
+# Eventos del ratón para el efecto hover de los botones
+EVENTO_ENTRADA = "<Enter>"
+EVENTO_SALIDA = "<Leave>"
+
 
 class AhorcadoGUI(tk.Tk):
     def __init__(self):
@@ -73,7 +80,7 @@ class AhorcadoGUI(tk.Tk):
         self.style.configure("TFrame", background=COLORES["fondo"])
         self.style.configure("Panel.TFrame", background=COLORES["panel"])
         self.style.configure(
-            "Titulo.TLabel",
+            ESTILO_TITULO,
             background=COLORES["fondo"],
             foreground=COLORES["acento"],
             font=("Georgia", 28, "bold")
@@ -115,7 +122,7 @@ class AhorcadoGUI(tk.Tk):
         frame.place(relx=0.5, rely=0.5, anchor="center")
 
         ttk.Label(
-            frame, text="⚔ El Ahorcado Medieval ⚔", style="Titulo.TLabel"
+            frame, text="⚔ El Ahorcado Medieval ⚔", style=ESTILO_TITULO
         ).pack(pady=(0, 40))
 
         botones = [
@@ -141,8 +148,8 @@ class AhorcadoGUI(tk.Tk):
                 cursor="hand2"
             )
             btn.pack(pady=6)
-            btn.bind("<Enter>", lambda e, b=btn: b.configure(bg=COLORES["boton_hover"]))
-            btn.bind("<Leave>", lambda e, b=btn: b.configure(bg=COLORES["boton"]))
+            btn.bind(EVENTO_ENTRADA, lambda e, b=btn: b.configure(bg=COLORES["boton_hover"]))
+            btn.bind(EVENTO_SALIDA, lambda e, b=btn: b.configure(bg=COLORES["boton"]))
 
     # ==================== SELECCIÓN DE DIFICULTAD ====================
 
@@ -153,7 +160,7 @@ class AhorcadoGUI(tk.Tk):
         frame.place(relx=0.5, rely=0.5, anchor="center")
 
         ttk.Label(
-            frame, text="Selecciona Dificultad", style="Titulo.TLabel"
+            frame, text="Selecciona Dificultad", style=ESTILO_TITULO
         ).pack(pady=(0, 30))
 
         dificultades = [
@@ -180,8 +187,8 @@ class AhorcadoGUI(tk.Tk):
                 cursor="hand2"
             )
             btn.pack(pady=5)
-            btn.bind("<Enter>", lambda e, b=btn: b.configure(bg=COLORES["boton_hover"]))
-            btn.bind("<Leave>", lambda e, b=btn: b.configure(bg=COLORES["boton"]))
+            btn.bind(EVENTO_ENTRADA, lambda e, b=btn: b.configure(bg=COLORES["boton_hover"]))
+            btn.bind(EVENTO_SALIDA, lambda e, b=btn: b.configure(bg=COLORES["boton"]))
 
         self._crear_boton_volver(frame, self._mostrar_menu_principal)
 
@@ -302,9 +309,9 @@ class AhorcadoGUI(tk.Tk):
                     command=lambda l=letra_lower: self._intento_letra(l)
                 )
                 btn.pack(side="left", padx=2, pady=2)
-                btn.bind("<Enter>", lambda e, b=btn: b.configure(bg=COLORES["boton_hover"])
+                btn.bind(EVENTO_ENTRADA, lambda e, b=btn: b.configure(bg=COLORES["boton_hover"])
                          if b["state"] == "normal" else None)
-                btn.bind("<Leave>", lambda e, b=btn: b.configure(bg=COLORES["boton"])
+                btn.bind(EVENTO_SALIDA, lambda e, b=btn: b.configure(bg=COLORES["boton"])
                          if b["state"] == "normal" else None)
                 self.botones_letras[letra_lower] = btn
 
@@ -454,7 +461,7 @@ class AhorcadoGUI(tk.Tk):
         frame.place(relx=0.5, rely=0.5, anchor="center")
 
         ttk.Label(
-            frame, text="Añadir Nueva Palabra", style="Titulo.TLabel"
+            frame, text="Añadir Nueva Palabra", style=ESTILO_TITULO
         ).pack(pady=(0, 30))
 
         # Palabra
@@ -545,7 +552,7 @@ class AhorcadoGUI(tk.Tk):
         frame_principal.pack(fill="both", expand=True, padx=20, pady=20)
 
         ttk.Label(
-            frame_principal, text="Palabras Registradas", style="Titulo.TLabel"
+            frame_principal, text="Palabras Registradas", style=ESTILO_TITULO
         ).pack(pady=(0, 15))
 
         # Frame con scroll

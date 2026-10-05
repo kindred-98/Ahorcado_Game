@@ -6,6 +6,7 @@ Acción del menú: mostrar todas las palabras almacenadas.
 
 from src.interfaz.pantalla.limpiar_pantalla          import limpiar_pantalla
 from src.interfaz.pantalla.mostrar_error             import mostrar_error
+from src.interfaz.menu.constantes_menu                import PEDIR_ENTER_VOLVER_MENU
 from src.base_datos.consultas.obtener_todas_las_palabras import obtener_todas_las_palabras
 
 
@@ -32,4 +33,4 @@ def _accion_ver_palabras() -> None:
             print(f"     {registro['palabra']:<20} {registro['dificultad']}")
         print(f"\n  Total: {len(lista_palabras)} palabras\n")
 
-    input("  Presiona ENTER para volver al menú...")
+    input(PEDIR_ENTER_VOLVER_MENU)

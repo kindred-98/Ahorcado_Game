@@ -1,3 +1,25 @@
+/*
+ * Paleta con contraste AA (>= 4.5:1) sobre los fondos usados:
+ * --fondo (#1a1a2e), --boton (#2d2d44) y --lista (#222).
+ */
+:root {
+    --fondo: #1a1a2e;
+    --boton: #2d2d44;
+    --boton-hover: #3a3a56;
+    --lista: #222;
+    --lista-borde: #444;
+    --acento: #c7a44a;
+    --texto: #eee;
+    --dificultad-facil: #2ecc71;
+    --dificultad-medio: #f39c12;
+    --dificultad-dificil: #ff8c7a;
+    --dificultad-legendario: #c39bea;
+    --tecla-correcta: #1e8449;
+    --tecla-fallida: #c0392b;
+    --canvas-fondo: #16213e;
+    --canvas-borde: #333;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,8 +27,8 @@
 }
 
 body {
-    background: #1a1a2e;
-    color: #eee;
+    background: var(--fondo);
+    color: var(--texto);
     font-family: 'Georgia', serif;
     min-height: 100vh;
     display: flex;
@@ -23,14 +45,14 @@ body {
 
 h1 {
     font-size: 2rem;
-    color: #c7a44a;
+    color: var(--acento);
     margin-bottom: 30px;
     text-shadow: 0 0 10px rgba(199, 164, 74, 0.3);
 }
 
 h2 {
     font-size: 1.4rem;
-    color: #c7a44a;
+    color: var(--acento);
     margin-bottom: 20px;
 }
 
@@ -43,9 +65,9 @@ h2 {
 }
 
 button {
-    background: #2d2d44;
-    color: #eee;
-    border: 1px solid #444;
+    background: var(--boton);
+    color: var(--texto);
+    border: 1px solid var(--lista-borde);
     padding: 12px 30px;
     font-size: 1rem;
     font-family: 'Georgia', serif;
@@ -56,12 +78,12 @@ button {
 }
 
 button:hover {
-    background: #3d3d5c;
+    background: var(--boton-hover);
 }
 
 button.volver {
     margin-top: 20px;
-    background: #222;
+    background: var(--lista);
     font-size: 0.9rem;
 }
 
@@ -91,14 +113,14 @@ button.volver {
 }
 
 .tecla.correcta {
-    background: #27ae60;
-    border-color: #27ae60;
+    background: var(--tecla-correcta);
+    border-color: var(--tecla-correcta);
     color: #fff;
 }
 
 .tecla.fallida {
-    background: #c0392b;
-    border-color: #c0392b;
+    background: var(--tecla-fallida);
+    border-color: var(--tecla-fallida);
     color: #fff;
 }
 
@@ -111,7 +133,7 @@ button.volver {
 .palabra {
     font-family: 'Consolas', monospace;
     font-size: 2rem;
-    color: #c7a44a;
+    color: var(--acento);
     letter-spacing: 8px;
     margin: 15px 0;
 }
@@ -123,13 +145,13 @@ button.volver {
 }
 
 .fallos {
-    color: #e74c3c;
+    color: var(--dificultad-dificil);
     margin: 5px 0 10px;
 }
 
 /* Info partida */
 .info-partida {
-    color: #c7a44a;
+    color: var(--acento);
     margin-bottom: 10px;
     font-size: 0.9rem;
 }
@@ -138,9 +160,9 @@ button.volver {
 canvas {
     display: block;
     margin: 0 auto;
-    background: #16213e;
+    background: var(--canvas-fondo);
     border-radius: 8px;
-    border: 1px solid #333;
+    border: 1px solid var(--canvas-borde);
 }
 
 /* Formulario añadir */
@@ -152,9 +174,9 @@ canvas {
     padding: 10px;
     font-size: 1rem;
     font-family: 'Consolas', monospace;
-    background: #2d2d44;
-    color: #eee;
-    border: 1px solid #444;
+    background: var(--boton);
+    color: var(--texto);
+    border: 1px solid var(--lista-borde);
     border-radius: 6px;
 }
 
@@ -169,12 +191,12 @@ canvas {
     max-height: 400px;
     overflow-y: auto;
     padding: 10px;
-    background: #222;
+    background: var(--lista);
     border-radius: 8px;
 }
 
 .cat-titulo {
-    color: #c7a44a;
+    color: var(--acento);
     font-weight: bold;
     margin-top: 12px;
     font-size: 1.1rem;
@@ -185,10 +207,11 @@ canvas {
     font-family: 'Consolas', monospace;
 }
 
-.dif-facil { color: #27ae60; }
-.dif-medio { color: #f39c12; }
-.dif-dificil { color: #e74c3c; }
-.dif-legendario { color: #8e44ad; }
+.dif-facil { color: var(--dificultad-facil); }
+.dif-medio { color: var(--dificultad-medio); }
+.dif-dificil { color: var(--dificultad-dificil); }
+.dif-legendario { color: var(--dificultad-legendario); }
+.dif-aleatorio { color: var(--acento); }
 
 /* Resultado */
 #resultado h2 {
@@ -201,5 +224,5 @@ canvas {
     margin: 10px 0;
 }
 
-.victoria { color: #27ae60 !important; }
-.derrota { color: #e74c3c !important; }
+.victoria { color: var(--dificultad-facil) !important; }
+.derrota { color: var(--dificultad-dificil) !important; }

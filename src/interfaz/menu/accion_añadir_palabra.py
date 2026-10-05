@@ -8,6 +8,7 @@ from src.interfaz.pantalla.limpiar_pantalla      import limpiar_pantalla
 from src.interfaz.pantalla.mostrar_mensaje       import mostrar_mensaje
 from src.interfaz.pantalla.mostrar_error         import mostrar_error
 from src.interfaz.menu.pedir_campo_validado      import _pedir_campo_validado
+from src.interfaz.menu.constantes_menu           import PEDIR_ENTER_VOLVER_MENU
 from src.base_datos.insercion.insertar_palabra   import insertar_palabra
 from src.base_datos.insercion.palabra_ya_existe  import palabra_ya_existe
 from src.validaciones.palabra.validar_palabra    import validar_palabra
@@ -16,7 +17,7 @@ from src.validaciones.palabra.validar_dificultad import validar_dificultad
 from src.validaciones.palabra.constantes         import CATEGORIAS_VALIDAS, DIFICULTADES_VALIDAS
 
 
-def _accion_añadir_palabra() -> None:
+def _accion_anadir_palabra() -> None:
     """
     Solicita palabra, categoría y dificultad al jugador,
     valida cada campo y confirma si fue insertada correctamente.
@@ -51,4 +52,4 @@ def _accion_añadir_palabra() -> None:
         else:
             mostrar_error("No se pudo añadir la palabra. Inténtalo de nuevo.")
 
-    input("\n  Presiona ENTER para volver al menú...")
+    input(PEDIR_ENTER_VOLVER_MENU)

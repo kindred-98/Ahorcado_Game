@@ -212,7 +212,7 @@ async function anadirPalabra() {
     const msg = document.getElementById("anadir-msg");
 
     if (!palabra || !categoria || !dificultad) {
-        msg.style.color = "#e74c3c";
+        msg.style.color = "#ff8c7a";
         msg.textContent = "Rellena todos los campos";
         return;
     }
@@ -226,13 +226,13 @@ async function anadirPalabra() {
     const data = await res.json();
 
     if (data.ok) {
-        msg.style.color = "#27ae60";
+        msg.style.color = "#2ecc71";
         msg.textContent = data.mensaje;
         document.getElementById("nueva-palabra").value = "";
         document.getElementById("nueva-categoria").value = "";
         document.getElementById("nueva-dificultad").value = "";
     } else {
-        msg.style.color = "#e74c3c";
+        msg.style.color = "#ff8c7a";
         msg.textContent = data.error;
     }
 }

@@ -6,8 +6,9 @@ Submenú de gestión de palabras: ver, añadir, modificar y eliminar.
 
 from src.interfaz.pantalla.limpiar_pantalla          import limpiar_pantalla
 from src.interfaz.pantalla.mostrar_error             import mostrar_error
+from src.interfaz.menu.constantes_menu                import PEDIR_ENTER
 from src.base_datos.consultas.obtener_todas_las_palabras import obtener_todas_las_palabras
-from src.interfaz.menu.accion_añadir_palabra         import _accion_añadir_palabra
+from src.interfaz.menu.accion_añadir_palabra         import _accion_anadir_palabra
 from src.interfaz.menu.accion_modificar_palabra      import _accion_modificar_palabra
 from src.interfaz.menu.accion_eliminar_palabra       import _accion_eliminar_palabra
 
@@ -43,7 +44,7 @@ def _accion_gestionar_palabras() -> None:
             _ver_palabras()
 
         elif opcion == _OPCION_AÑADIR:
-            _accion_añadir_palabra()
+            _accion_anadir_palabra()
 
         elif opcion == _OPCION_MODIFICAR:
             _accion_modificar_palabra()
@@ -111,4 +112,4 @@ def _ver_palabras() -> None:
             print(f"     {registro['palabra']:<20} {registro['dificultad']}")
         print(f"\n  Total: {len(lista_palabras)} palabras\n")
 
-    input("  Presiona ENTER para continuar...")
+    input(PEDIR_ENTER)

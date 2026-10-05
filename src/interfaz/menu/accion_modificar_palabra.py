@@ -8,6 +8,7 @@ from src.interfaz.pantalla.limpiar_pantalla      import limpiar_pantalla
 from src.interfaz.pantalla.mostrar_mensaje       import mostrar_mensaje
 from src.interfaz.pantalla.mostrar_error         import mostrar_error
 from src.interfaz.menu.pedir_campo_validado      import _pedir_campo_validado
+from src.interfaz.menu.constantes_menu           import PEDIR_ENTER
 from src.base_datos.insercion.actualizar_palabra import actualizar_palabra
 from src.base_datos.insercion.palabra_ya_existe  import palabra_ya_existe
 from src.validaciones.palabra.validar_palabra    import validar_palabra
@@ -30,12 +31,12 @@ def _accion_modificar_palabra() -> None:
 
     if not palabra_original:
         mostrar_error("Debes ingresar una palabra.")
-        input("\n  Presiona ENTER para continuar...")
+        input(PEDIR_ENTER)
         return
 
     if not palabra_ya_existe(palabra_original):
         mostrar_error(f"La palabra '{palabra_original}' no existe en la base de datos.")
-        input("\n  Presiona ENTER para continuar...")
+        input(PEDIR_ENTER)
         return
 
     print(f"\n  Modificando: '{palabra_original.upper()}'\n")
@@ -64,4 +65,4 @@ def _accion_modificar_palabra() -> None:
     else:
         mostrar_error("No se pudo actualizar la palabra. Inténtalo de nuevo.")
 
-    input("\n  Presiona ENTER para continuar...")
+    input(PEDIR_ENTER)

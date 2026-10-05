@@ -1,7 +1,7 @@
 """
 constantes_menu.py
 ==================
-Constantes de opciones del menú principal.
+Constantes de opciones y mensajes del menú principal.
 """
 
 OPCION_JUGAR:             str = "1"
@@ -13,3 +13,6 @@ OPCIONES_VALIDAS: tuple[str, ...] = (
     OPCION_GESTIONAR_PALABRAS,
     OPCION_SALIR,
 )
+
+PEDIR_ENTER:             str = "\n  Presiona ENTER para continuar..."
+PEDIR_ENTER_VOLVER_MENU: str = "\n  Presiona ENTER para volver al menú..."

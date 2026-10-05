@@ -40,6 +40,10 @@ ENV/
 env.bak/
 venv.bak/
 
+# ── Secretos locales ─────────────────────────────────────────
+# Clave de firma de sesión generada automáticamente por app.py
+.secret_key
+
 # ── IDEs y editores ──────────────────────────────────────────
 # VS Code
 .vscode/

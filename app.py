@@ -5,11 +5,21 @@ Servidor Flask para El Ahorcado Medieval.
 
 Uso:
     python app.py
+
+Variables de entorno opcionales:
+    AHORCADO_SECRET_KEY  Clave para firmar las cookies de sesión.
+                         Si no se define, se usa (o se genera) el
+                         archivo local ".secret_key" (no versionado).
+    FLASK_DEBUG          Poner "1" para activar el modo depuración.
+    FLASK_PORT           Puerto del servidor (por defecto 5000).
 """
 
 from flask import Flask, render_template, request, jsonify, session
+import secrets
 import sys
 import os
+
+RUTA_CLAVE_SECRETA = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".secret_key")
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -19,15 +29,50 @@ from src.base_datos.consultas.obtener_todas_las_palabras import obtener_todas_la
 from src.base_datos.consultas.obtener_categorias import obtener_categorias
 from src.base_datos.insercion.insertar_palabra import insertar_palabra
 
+
+def _obtener_clave_secreta() -> str:
+    """
+    Resuelve la clave de firma de sesión sin dejarla en el código.
+
+    Prioridad: variable de entorno AHORCADO_SECRET_KEY, archivo local
+    ".secret_key" (ignorado por Git) y, como último recurso, una clave
+    aleatoria válida solo para la sesión actual.
+
+    Returns:
+        str: Clave secreta para firmar las cookies de sesión.
+    """
+    clave_del_entorno = os.environ.get("AHORCADO_SECRET_KEY", "").strip()
+    if clave_del_entorno:
+        return clave_del_entorno
+
+    if os.path.exists(RUTA_CLAVE_SECRETA):
+        try:
+            with open(RUTA_CLAVE_SECRETA, encoding="utf-8") as archivo:
+                clave_guardada = archivo.read().strip()
+            if clave_guardada:
+                return clave_guardada
+        except OSError:
+            pass
+
+    clave_generada = secrets.token_hex(32)
+    try:
+        with open(RUTA_CLAVE_SECRETA, "w", encoding="utf-8") as archivo:
+            archivo.write(clave_generada)
+    except OSError:
+        pass
+
+    return clave_generada
+
+
 app = Flask(__name__)
-app.secret_key = "ahorcado-medieval-secret-key"
+app.secret_key = _obtener_clave_secreta()
 
 inicializar_base_datos()
 
 MAX_FALLOS = 6
 
 
-@app.route("/")
+@app.route("/", methods=["GET"])
 def index():
     return render_template("index.html")
 
@@ -125,13 +170,13 @@ def intentar():
     return jsonify(response)
 
 
-@app.route("/api/categorias")
+@app.route("/api/categorias", methods=["GET"])
 def categorias():
     cats = obtener_categorias()
     return jsonify(cats)
 
 
-@app.route("/api/palabras")
+@app.route("/api/palabras", methods=["GET"])
 def palabras():
     p = obtener_todas_las_palabras()
     return jsonify(p)
@@ -160,4 +205,6 @@ def anadir():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    puerto = int(os.environ.get("FLASK_PORT", "5000"))
+    depurar = os.environ.get("FLASK_DEBUG", "").strip().lower() in ("1", "true", "yes", "on")
+    app.run(host="127.0.0.1", port=puerto, debug=depurar)
