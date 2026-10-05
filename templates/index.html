@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>El Ahorcado Medieval</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
@@ -53,10 +54,13 @@
         <!-- AÑADIR PALABRA -->
         <div id="anadir" class="seccion">
             <h2>Añadir Palabra</h2>
-            <input type="text" id="nueva-palabra" placeholder="Palabra" maxlength="30">
-            <input type="text" id="nueva-categoria" placeholder="Categoría">
+            <label for="nueva-palabra">Palabra</label>
+            <input type="text" id="nueva-palabra" maxlength="30" autocomplete="off">
+            <label for="nueva-categoria">Categoría</label>
+            <input type="text" id="nueva-categoria" autocomplete="off">
+            <label for="nueva-dificultad">Dificultad</label>
             <select id="nueva-dificultad">
-                <option value="">Dificultad...</option>
+                <option value="">Elige una dificultad...</option>
                 <option value="facil">Fácil</option>
                 <option value="medio">Medio</option>
                 <option value="dificil">Difícil</option>

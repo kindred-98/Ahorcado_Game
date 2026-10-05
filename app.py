@@ -12,9 +12,15 @@ Variables de entorno opcionales:
                          archivo local ".secret_key" (no versionado).
     FLASK_DEBUG          Poner "1" para activar el modo depuración.
     FLASK_PORT           Puerto del servidor (por defecto 5000).
+
+Seguridad:
+    La app usa CSRFProtect de Flask-WTF: todas las rutas que cambian
+    estado exigen el token "X-CSRFToken" que el front-end lee de la
+    etiqueta <meta name="csrf-token"> de index.html.
 """
 
 from flask import Flask, render_template, request, jsonify, session
+from flask_wtf.csrf import CSRFProtect
 import secrets
 import sys
 import os
@@ -66,6 +72,13 @@ def _obtener_clave_secreta() -> str:
 
 app = Flask(__name__)
 app.secret_key = _obtener_clave_secreta()
+
+app.config.update(
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE="Strict",
+)
+
+csrf = CSRFProtect(app)
 
 inicializar_base_datos()
 

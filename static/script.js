@@ -10,22 +10,37 @@ const MENSAJES = [
 
 const FILAS = ["QWERTYUIOP", "ASDFGHJKLÑ", "ZXCVBNM"];
 
+function tokenCsrf() {
+    const meta = document.querySelector('meta[name="csrf-token"]');
+    return meta ? meta.content : "";
+}
+
+async function leerError(res) {
+    const cuerpo = await res.json().catch(() => ({}));
+    return cuerpo.error || `Error ${res.status}`;
+}
+
 function mostrarPantalla(id) {
     document.querySelectorAll(".seccion").forEach(s => s.classList.remove("activa"));
     document.getElementById(id).classList.add("activa");
 
-    if (id === "ver") cargarPalabras();
+    if (id === "ver") {
+        cargarPalabras().catch(error => console.error("Error al cargar las palabras:", error));
+    }
 }
 
 async function iniciarJuego(dificultad) {
     const res = await fetch("/api/jugar", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": tokenCsrf()
+        },
         body: JSON.stringify({ dificultad })
     });
 
     if (!res.ok) {
-        alert("Error al iniciar juego");
+        alert(await leerError(res));
         return;
     }
 
@@ -65,9 +80,18 @@ async function intentar(letra, btn) {
 
     const res = await fetch("/api/intentar", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": tokenCsrf()
+        },
         body: JSON.stringify({ letra })
     });
+
+    if (!res.ok) {
+        alert(await leerError(res));
+        btn.disabled = false;
+        return;
+    }
 
     const data = await res.json();
 
@@ -219,7 +243,10 @@ async function anadirPalabra() {
 
     const res = await fetch("/api/anadir", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": tokenCsrf()
+        },
         body: JSON.stringify({ palabra, categoria, dificultad })
     });
 
@@ -233,12 +260,15 @@ async function anadirPalabra() {
         document.getElementById("nueva-dificultad").value = "";
     } else {
         msg.style.color = "#ff8c7a";
-        msg.textContent = data.error;
+        msg.textContent = data.error || (await leerError(res));
     }
 }
 
 async function cargarPalabras() {
     const res = await fetch("/api/palabras");
+    if (!res.ok) {
+        throw new Error(await leerError(res));
+    }
     const palabras = await res.json();
     const cont = document.getElementById("lista-palabras");
 

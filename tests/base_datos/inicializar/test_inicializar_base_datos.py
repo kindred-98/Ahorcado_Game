@@ -32,4 +32,6 @@ def test_palabras_tienen_todos_los_campos(bd_prueba):
         "SELECT palabra, categoria, dificultad FROM palabras LIMIT 1"
     ).fetchone()
     assert fila is not None
-    assert fila[0] and fila[1] and fila[2]
+    assert fila[0]
+    assert fila[1]
+    assert fila[2]

@@ -166,6 +166,14 @@ canvas {
 }
 
 /* Formulario añadir */
+#anadir label {
+    display: block;
+    width: 80%;
+    margin: 12px auto 4px;
+    text-align: left;
+    color: var(--acento);
+}
+
 #anadir input,
 #anadir select {
     display: block;
